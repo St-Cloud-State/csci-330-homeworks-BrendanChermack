@@ -1,0 +1,231 @@
+Script started on 2025-02-17 22:05:56+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="246" LINES="19"]
+[0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ g++ QuickSort.cpp 
+[01m[KQuickSort.cpp:[m[K In function ‘[01m[Kvoid quickSort(int*, int, int)[m[K’:
+[01m[KQuickSort.cpp:28:10:[m[K [01;35m[Kwarning: [m[Kstructured bindings only available with ‘[01m[K-std=c++17[m[K’ or ‘[01m[K-std=gnu++17[m[K’
+   28 |     auto [01;35m[K[[m[Kl, h] = qsStack.top(); // Get current subarray range
+      |          [01;35m[K^[m[K
+[0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ g++ QuickSort.cpp [10@-std=c++17[1@ 
+[0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ /a.out[C./a.out
+Enter 10 integers for the array to sort: 10 8   9 8 7 6 5 4 3 2 1
+Original array: 10 9 8 7 6 5 4 3 2 1 
+Sorting array...
+Sorted array: 1 2 3 4 5 6 7 8 9 10 
+[0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ ./a.out
+Enter 10 integers for the array to sort: 2 4 9 1 3 5 7
+3 9 8 10
+Original array: 2 4 9 1 3 5 7 3 9 8 
+Sorting array...
+Sorted array: 1 2 3 3 4 5 7 8 9 9 
+[0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ ./a.outg++ -std=c++17 QuickSort.cpp [11P[C[C[C[C[C[C[C[C[C[C[C[C[C[Csbcl --load "hw3.lsp" --quitclear[Ksbcl --load "hw3.lsp" --quit[1@-[1@t[1@o[1@p[9@-down.lsp[C[C[C[C[1P[1P[1P[1P
+This is SBCL 1.4.3, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+
+(1 2 3 4 5 6 7 8) 
+(1 1 2 2 3 3 4 5 5 6 7 8 9 10 11) 
+(1) 
+NIL [0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ sbcl --load "hw3-top-down.lsp" --quit[C[C[1P[1P[1P[1P[1P[1P[1P[1P[1@b[1@o[1@t[10@tom-up.lsp[C[C[C[C[1P[1P[1P[1P
+This is SBCL 1.4.3, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+
+((1 7) (1 2) (6 8) (3 5) (7 9) (4 8) (1 3) (19)) 
+(1 1 1 2 3 3 4 5 6 7 7 8 8 9 19) [0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ sbcl --load "hw3-bottom-up.lsp" --quit[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1@-[1@i[1@n[11@sertion.lsp
+This is SBCL 1.4.3, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+
+(1 2 3 5 7 8 9) 
+(1 2 3 4 5 6 7 8 9 10) [0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ cat hw3-top-down.lsp 
+(defun partition (oList list1 list2); partitioning of the half way point
+  (cond
+    ((null oList) (values list1 list2))
+    ((null (cdr oList)) (values (cons (car oList) list1) list2))
+    (t (partition (cddr oList) (cons (car oList) list1) (cons (cadr oList) list2)))))
+
+
+(defun merge-sorted-lists (list1 list2)
+  (cond
+    ((null list1) list2)  ; If list1 is empty, return list2
+    ((null list2) list1)  ; If list2 is empty, return list1
+    ((<= (car list1) (car list2))  ; If first element of list1 is smaller
+     (cons (car list1) (merge-sorted-lists (cdr list1) list2)))
+    (t (cons (car list2) (merge-sorted-lists list1 (cdr list2))))))  ; Else take from list2
+
+
+(defun mergesort (oList)
+  (cond
+    ((null oList) nil)  ; Base case: Empty list
+    ((null (cdr oList)) oList)  ; Base case: Single element is already sorted
+    (t (multiple-value-bind (left right) (partition oList '() '())  ; Partition into two halves
+         (merge-sorted-lists (mergesort left) (mergesort right))))))  ; Recursively sort and merge
+
+
+(print (mergesort '(4 3 7 8 1 5 2 6)))  
+(print (mergesort '(10 9 8 7 6 5 4 3 2 1 3 5 1 2 11)))  
+(print (mergesort '(1)))
+(print (mergesort '()))
+
+ [0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ cat hw3-bottom-up.lsp 
+(defun merge-two-elements (a b) ; merges two elements for proper sorting
+  (cond
+    ((null a) b)
+    ((null b) a)
+    ((<= (car a) (car b)) (list (car a) (car b)))
+    (t (list (car b) (car a)))))
+(defun make-sorted-pairs (lst)
+  (cond
+    ((null lst) nil)
+    ((null (cdr lst)) (list (list (car lst))))
+    (t (cons (merge-two-elements (list (car lst))
+                                 (list (cadr lst)))
+             (make-sorted-pairs (cddr lst))))))
+
+(defun merge-sorted-sublists (list1 list2)
+(cond
+    ;if the first list is empty return the second
+    ((null list1) list2)
+    ;if the second list is empty return the first
+    ((null list2) list1)
+    ;compare elements and pick the smaller
+    ((<= (car list1) (car list2))
+     (cons (car list1) (merge-sorted-sublists (cdr list1) list2)))
+    (t (cons (car list2) (merge-sorted-sublists list1 (cdr list2))))))
+
+(defun merge-all-passes (list-of-sublists)
+  (cond
+    ((null list-of-sublists) nil)
+    ;done if only one remains
+    ((null (cdr list-of-sublists)) (car list-of-sublists))
+    (t
+     ;do one pass of pairwise merges then recurse it
+     (merge-all-passes
+       (labels ((one-pass (subs acc)
+                  (cond
+                    ;no sublists leads to just returning reversed accumulator which reverses in place in memory without allocating new space
+                    ((null subs) (nreverse acc))
+                    ;leftovers: add it and finish
+                    ((null (cdr subs))
+                     (nreverse (cons (car subs) acc)))
+                    (t
+                     (one-pass (cddr subs)
+                               (cons (merge-sorted-sublists (car subs)
+                                                            (cadr subs))
+                                     acc))))))
+         (one-pass list-of-sublists nil))))))
+;Printed results
+ (let* ((pairs (make-sorted-pairs '(1 7 2 1 8 6 5 3 7 9 4 8 3 1 19)))
+       (sorted (merge-all-passes pairs)))
+(print pairs)
+(print sorted))
+
+[0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ cat hw3-insertion.lsp 
+(defun insert-ascending (x sorted) ;inserts the value in the right spot in the sorted list
+  (cond
+    ;if empty place x in the sorted list
+    ((null sorted)
+     (list x))
+    ;if x is less or equal to the first element insert at the front
+    ((<= x (car sorted))
+     (cons x sorted))
+    ;if not continue down the list
+    (t
+     (cons (car sorted)
+           (insert-ascending x (cdr sorted))))))
+
+(defun insertion-sort-helper (sorted unsorted); uses the insertion ascending function for placement and takes the 2 lists for sorting
+  (if (null unsorted)
+      ;base case: no more elements to insert
+      sorted
+    ;insert the first unsorted element into the sorted list and continue on the rest
+    (insertion-sort-helper
+      (insert-ascending (car unsorted) sorted)
+      (cdr unsorted))))
+
+(defun insertion-sort (lst) ; wrapper function for neat calling
+  (insertion-sort-helper nil lst))
+
+(print (insertion-sort '(7 3 5 2 9 1 8))) 
+(print (insertion-sort '(10 9 8 7 6 5 4 3 2 1))) [0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ cat qu[K[KQuickSort.cpp 
+#include <iostream> 
+#include <stack>
+
+
+using namespace std;
+
+int partition( int arr[], int low, int high ) {
+  int pivot = arr[ high ]; // Choosing the last element as pivot
+  int i = low - 1; // Index for smaller elements
+
+  for ( int j = low; j < high; j++ ) {
+    if ( arr[ j ] < pivot ) {
+      i++;
+      swap( arr[ i ], arr[ j ] );
+    }
+  }
+  swap( arr[ i + 1 ], arr[ high ] ); // Place pivot in correct position
+  return i + 1; // Return pivot index
+}
+
+void quickSort( int arr[], int low, int high ) {
+  stack<pair<int, int>> qsStack; // Stack to store subarray indices
+
+  // Push initial range onto stack
+  qsStack.push( { low, high } );
+
+  while ( !qsStack.empty() ) {
+    auto [l, h] = qsStack.top(); // Get current subarray range
+    qsStack.pop();
+
+    if ( l < h ) {
+      int p = partition( arr, l, h ); // Partition the array
+
+      // Push right subarray if it has elements
+      if ( p + 1 < h ) {
+        qsStack.push( { p + 1, h } );
+      }
+      // Push left subarray if it has elements
+      if ( l < p - 1 ) {
+        qsStack.push( { l, p - 1 } );
+      }
+    }
+  }
+}
+void printArray( int arr[], int size ) {
+  for ( int i = 0; i < size; i++ )
+    cout << arr[ i ] << " ";
+  cout << endl;
+}
+int main() {
+  int arr[ 10 ];
+  const int size = 10;
+  cout << "Enter " << size << " integers for the array to sort: ";
+  for(int i = 0; i < size; i++){
+    cin >> arr[i];
+  }
+
+  cout << "Original array: ";
+  printArray( arr, size );
+
+  quickSort( arr, 0, size - 1 );
+
+  cout << "Sorting array...\nSorted array: ";
+  printArray( arr, size );
+
+  return 0;
+}[0;32m@BrendanChermack [0m➜ [1;34m/workspaces/csci-330-homeworks-BrendanChermack/Hwork3 [0;36m([1;31mmain[0;36m) [0m$ exit
+exit
+
+Script done on 2025-02-17 22:08:44+00:00 [COMMAND_EXIT_CODE="0"]
